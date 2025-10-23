@@ -1,12 +1,22 @@
-/* src/index.css */
-
-/* 1. Base y Colores */
+/* ------------------------------------------------ */
+/* 1. Base, Variables y Fuente (Inter) */
+/* ------------------------------------------------ */
 :root {
-  --deep-navy: #212A3E;
-  --steel-blue: #394867;
-  --slate-gray: #9BA4B5;
-  --soft-white: #F1F6F9;
+
+    --color-bg-dark: #121827;
+    --color-card-dark: #212838;
+    --color-text-light: #E0E5EC;
+    --color-primary: #5C6BC0;
+    --color-primary-hover: #7986CB;
+    --color-input-bg: #2C3545;
+    --color-error: #EF5350;
+
+    /* Fuente Inter para mejor legibilidad */
+    --font-stack: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    /* AHORA TERMINA CON ; */
 }
+
+/* <-- La llave de cierre está correcta */
 
 * {
     box-sizing: border-box;
@@ -14,118 +24,175 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--deep-navy); /* Fondo global */
-}
-
-/* 2. Centrado de la Aplicación */
-.app-container {
-    background-color: var(--deep-navy);
-    min-height: 100vh; /* Altura completa de la ventana */
+    padding: 0;
+    font-family: var(--font-stack);
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    line-height: 1.5;
+    /* Centrado principal de la aplicación */
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
-/* 3. La Tarjeta de Inicio de Sesión  */
-.login-card {
-    background-color: var(--steel-blue);
-    padding: 2rem; /* p-8 */
-    border-radius: 1rem; /* rounded-2xl */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* shadow-2xl */
-    
-   
-    width: 384px;          
-    max-width: 450px;     
-    min-width: 350px;      
-    
-    transition: transform 0.3s ease-in-out;
-}
-
-
-.login-card:hover {
-    transform: translateY(-5px); 
-}
-
-
-.login-title {
-    color: var(--soft-white);
-    font-size: 1.875rem; 
-    font-weight: bold;
+/* Estilo para el contenedor principal de la página (no afecta al Modal) */
+.login-page-container {
+    /* En desktop, centrado, en móvil, ocupa el ancho */
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     text-align: center;
-    margin-bottom: 1.5rem; 
+    padding: 1rem;
+    /* Padding general para evitar tocar los bordes */
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column; 
-    gap: 1rem; 
+/* ------------------------------------------------ */
+/* -- 2. ESTILOS DE TARJETA/MODAL (Responsive Card) -- */
+/* ------------------------------------------------ */
+
+.modal-content,
+.login-card {
+    background-color: var(--color-card-dark);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
 }
+
+.modal-header {
+    border-bottom: 1px solid #3A4458;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    color: var(--color-text-light);
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+/* ------------------------------------------------ */
+/* -- 3. ESTILOS DE FORMULARIO/INPUTS -- */
+/* ------------------------------------------------ */
 
 .form-group {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-.form-group label {
-    color: var(--soft-white);
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-}
-
-/* 5. Inputs */
 .form-input {
-    padding: 0.5rem; /* p-2 */
-    border-radius: 0.375rem; /* rounded-md */
-    border: 1px solid var(--slate-gray);
-    background-color: var(--soft-white);
-    color: var(--deep-navy);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #3A4458;
+    border-radius: 6px;
+    background-color: var(--color-input-bg);
+    color: var(--color-text-light);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
 }
 
 .form-input:focus {
+    border-color: var(--color-primary);
     outline: none;
-    border-color: var(--slate-gray);
-    box-shadow: 0 0 0 2px var(--slate-gray);
+    box-shadow: 0 0 0 2px rgba(92, 107, 192, 0.5);
 }
 
+/* ------------------------------------------------ */
+/* -- 4. BOTONES -- */
+/* ------------------------------------------------ */
 
 .login-button {
-    margin-top: 1rem; /* mt-4 */
-    background-color: var(--deep-navy);
-    color: var(--soft-white);
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-weight: 600;
+    width: 100%;
+    padding: 12px;
     border: none;
+    border-radius: 6px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s; /* Animación de hover */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-.login-button:hover {
-    background-color: var(--slate-gray);
-    transform: scale(1.05); /* Efecto de escala */
+.login-button:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+    transform: scale(0.99);
 }
 
+.login-button:disabled {
+    background-color: #3A4458;
+    cursor: not-allowed;
+}
 
+.form-error {
+    color: var(--color-error);
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* ------------------------------------------------ */
+/* -- 5. ESTILOS DEL MODAL BACKDROP -- */
+/* ------------------------------------------------ */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* ------------------------------------------------ */
+/* -- 6. MEDIA QUERIES (Asegurar Responsividad) -- */
+/* ------------------------------------------------ */
+
+/* Móvil (hasta 600px) */
 @media (max-width: 600px) {
-    
-  
-    .app-container {
-        padding: 2rem 0; /* Añade un padding superior e inferior */
-        align-items: flex-start; /* Coloca el contenido arriba para que sea fácil de scrollear si es necesario */
+
+    /* El body ya no centra el contenido verticalmente para permitir scroll en móvil */
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        min-height: auto;
     }
 
-    
-    .login-card {
-        width: 90%; /* La tarjeta ocupará el 90% del ancho del móvil */
-        max-width: 350px; 
-        padding: 1.5rem; 
+    /* La tarjeta de login ocupa casi todo el ancho */
+    .login-card,
+    .modal-content {
+        max-width: none;
+        width: 90%;
+        padding: 20px;
+        margin: 0 auto;
     }
 
-    /* 3. Ajuste del Título */
-    .login-title {
-        font-size: 1.5rem; 
-        margin-bottom: 1rem;
+    /* El contenedor principal también debe alinearse al inicio */
+    .login-page-container {
+        max-width: 90%;
+        padding: 0;
+    }
+
+    .modal-backdrop {
+        align-items: center;
+    }
+}
+
+/* Tablet (601px a 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+
+    /* Se mantienen los estilos de escritorio, pero se ajusta el max-width */
+    .login-card,
+    .modal-content {
+        max-width: 380px;
     }
 }
