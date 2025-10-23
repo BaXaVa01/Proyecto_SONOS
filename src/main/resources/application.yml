@@ -3,18 +3,42 @@ server:
 
 spring:
   datasource:
+    # Base de datos en memoria (H2). Se reinicia al apagar el servidor.
+    # Si querés usar PostgreSQL, cambialo por:
+    # url: jdbc:postgresql://localhost:5432/sonosdb
+    # driverClassName: org.postgresql.Driver
+    # username: postgres
+    # password: tu_clave
     url: jdbc:h2:mem:sonosdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
     driverClassName: org.h2.Driver
     username: sa
     password: ''
   jpa:
+    # Spring crea las tablas automáticamente según tus entidades @Entity
+
     hibernate:
       ddl-auto: update
+      #Muestra las consultas SQL que se ejecutan en consola
+
     show-sql: true
   h2:
     console:
       enabled: true
       path: /h2-console
+# Instrucciones rápidas para entrar al panel H2:
+# 1. Inicia el servidor (mvn spring-boot:run o desde IntelliJ)
+# 2. Abre en tu navegador: http://localhost:8080/h2-console
+# 3. En "JDBC URL" escribe: jdbc:h2:mem:sonosdb
+# 4. Usuario: sa
+# 5. Contraseña: (dejar en blanco)
+# 6. Presiona Connect
+# 7. Ya dentro, podés ejecutar:
+#    SHOW TABLES;
+#    SELECT * FROM SALAS;
+#    SELECT * FROM EQUIPOS;
+#    SELECT * FROM ACCESO_SALA;
+#    SELECT * FROM TEMP_USER;
+
 
 app:
   admin:
@@ -22,3 +46,4 @@ app:
     password: admin123
   cors:
     allowed-origins: "http://localhost:3000,http://localhost:5173"
+
