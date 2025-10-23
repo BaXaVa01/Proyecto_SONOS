@@ -1,0 +1,131 @@
+/* src/index.css */
+
+/* 1. Base y Colores */
+:root {
+  --deep-navy: #212A3E;
+  --steel-blue: #394867;
+  --slate-gray: #9BA4B5;
+  --soft-white: #F1F6F9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--deep-navy); /* Fondo global */
+}
+
+/* 2. Centrado de la Aplicación */
+.app-container {
+    background-color: var(--deep-navy);
+    min-height: 100vh; /* Altura completa de la ventana */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 3. La Tarjeta de Inicio de Sesión  */
+.login-card {
+    background-color: var(--steel-blue);
+    padding: 2rem; /* p-8 */
+    border-radius: 1rem; /* rounded-2xl */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* shadow-2xl */
+    
+   
+    width: 384px;          
+    max-width: 450px;     
+    min-width: 350px;      
+    
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.login-card:hover {
+    transform: translateY(-5px); 
+}
+
+
+.login-title {
+    color: var(--soft-white);
+    font-size: 1.875rem; 
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem; 
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column; 
+    gap: 1rem; 
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: var(--soft-white);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+/* 5. Inputs */
+.form-input {
+    padding: 0.5rem; /* p-2 */
+    border-radius: 0.375rem; /* rounded-md */
+    border: 1px solid var(--slate-gray);
+    background-color: var(--soft-white);
+    color: var(--deep-navy);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--slate-gray);
+    box-shadow: 0 0 0 2px var(--slate-gray);
+}
+
+
+.login-button {
+    margin-top: 1rem; /* mt-4 */
+    background-color: var(--deep-navy);
+    color: var(--soft-white);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s; /* Animación de hover */
+}
+
+.login-button:hover {
+    background-color: var(--slate-gray);
+    transform: scale(1.05); /* Efecto de escala */
+}
+
+
+@media (max-width: 600px) {
+    
+  
+    .app-container {
+        padding: 2rem 0; /* Añade un padding superior e inferior */
+        align-items: flex-start; /* Coloca el contenido arriba para que sea fácil de scrollear si es necesario */
+    }
+
+    
+    .login-card {
+        width: 90%; /* La tarjeta ocupará el 90% del ancho del móvil */
+        max-width: 350px; 
+        padding: 1.5rem; 
+    }
+
+    /* 3. Ajuste del Título */
+    .login-title {
+        font-size: 1.5rem; 
+        margin-bottom: 1rem;
+    }
+}
