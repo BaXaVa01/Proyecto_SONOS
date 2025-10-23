@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contacto — SoundZone</title>
+  <style>
+    /* Palette from attachment: deep navy, steel blue, slate gray, soft white */
+    :root{
+      --deep-navy: #212A3E;
+      --steel-blue: #394867;
+      --slate-gray: #9BA4B5;
+      --soft-white: #F1F6F9;
+      --accent: #60A5FA;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{background:linear-gradient(180deg,var(--deep-navy) 0%, #1e2b44 60%);display:flex;align-items:center;justify-content:center;color:var(--soft-white)}
+    .card{max-width:720px;width:92%;background:linear-gradient(180deg, rgba(57,72,103,0.08), rgba(57,72,103,0.04));border-radius:14px;padding:2.25rem;border:1px solid rgba(154,164,181,0.06);box-shadow:0 20px 50px rgba(2,6,23,0.6)}
+    h1{margin:0 0 0.5rem 0;font-size:1.6rem}
+    p.lead{margin:0 0 1.25rem 0;color:var(--slate-gray)}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem}
+    input[type=text], input[type=email]{padding:0.85rem 1rem;border-radius:10px;border:1px solid rgba(155,164,181,0.12);background:rgba(255,255,255,0.03);color:var(--soft-white);outline:none}
+    input:focus{box-shadow:0 8px 24px rgba(59,130,246,0.06);border-color:rgba(96,165,250,0.24)}
+    .full{grid-column:1 / -1}
+    .actions{display:flex;gap:0.75rem;align-items:center;margin-top:0.75rem}
+    .btn{background:linear-gradient(180deg,var(--accent),#1d4ed8);color:white;border:none;padding:0.8rem 1rem;border-radius:10px;cursor:pointer;box-shadow:0 10px 30px rgba(29,78,216,0.18)}
+    .btn:disabled{opacity:0.6;cursor:not-allowed}
+    .success{display:flex;gap:0.9rem;align-items:center;color:var(--soft-white);opacity:0}
+    .success.show{animation:fadeUp 700ms cubic-bezier(.2,.8,.2,1) forwards}
+    .check{width:48px;height:48px;border-radius:999px;background:linear-gradient(180deg,#34D399,#10B981);display:inline-flex;align-items:center;justify-content:center;transform:scale(0.6);opacity:0}
+    .check.show{animation:pop 600ms cubic-bezier(.2,.8,.2,1) forwards}
+    @keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:scale(1);opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @media (max-width:720px){form{grid-template-columns:1fr} .card{padding:1.25rem} h1{font-size:1.25rem}}
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <h1>Contacto</h1>
+    <p class="lead">Déjanos tus datos y nos pondremos en contacto contigo pronto.</p>
+
+    <form id="contactForm">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="text" name="apellido" placeholder="Apellido" required>
+      <input class="full" type="email" name="email" placeholder="Correo electrónico" required>
+
+      <div class="actions full">
+        <button class="btn" type="submit">Enviar solicitud</button>
+        <div class="success" id="success">
+          <div class="check" id="check" aria-hidden>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M20.285 6.709a1 1 0 0 0-1.414-1.418l-9.192 9.193-4.164-4.165a1 1 0 1 0-1.414 1.414l4.877 4.877a1 1 0 0 0 1.414 0l9.593-9.901z"/></svg>
+          </div>
+          <div class="msg">Muchas gracias, estaremos en contacto pronto</div>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('success');
+    const check = document.getElementById('check');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type=submit]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      setTimeout(()=>{
+        submitBtn.textContent = 'Enviado';
+        check.classList.add('show');
+        success.classList.add('show');
+      },900);
+    });
+  </script>
+</body>
+</html>
