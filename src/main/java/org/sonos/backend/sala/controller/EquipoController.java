@@ -1,39 +1,38 @@
 package org.sonos.backend.sala.controller;
 
 import org.sonos.backend.sala.model.Equipo;
-import org.sonos.backend.sala.service.EquipoService;
+import org.sonos.backend.sala.repository.EquipoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/equipos")
 @CrossOrigin
 public class EquipoController {
 
-    private final EquipoService equipoService;
+    private final EquipoRepository repo;
 
-    public EquipoController(EquipoService equipoService) {
-        this.equipoService = equipoService;
+    public EquipoController(EquipoRepository repo) {
+        this.repo = repo;
     }
 
+    // ✅ listar todos los equipos
     @GetMapping
     public List<Equipo> listar() {
-        return equipoService.listar();
+        return repo.findAll();
     }
 
-    @PostMapping
-    public Equipo crear(@RequestBody Equipo equipo) {
-        return equipoService.crear(equipo);
+    // ✅ listar equipos por sala
+    @GetMapping("/por-sala/{idSala}")
+    public List<Equipo> listarPorSala(@PathVariable Long idSala) {
+        return repo.findBySalaIdSala(idSala);
     }
 
-    @PutMapping("/{id}")
-    public Equipo actualizar(@PathVariable Long id, @RequestBody Equipo equipo) {
-        return equipoService.actualizar(id, equipo);
-    }
-
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
-        equipoService.eliminar(id);
+    // ✅ CLI simulado (SSH)
+    @GetMapping("/{id}/ssh")
+    public Map<String, String> simularSSH(@PathVariable Long id) {
+        return Map.of("cli", "🔧 Conectado a equipo " + id + " por SSH (simulado)");
     }
 }
