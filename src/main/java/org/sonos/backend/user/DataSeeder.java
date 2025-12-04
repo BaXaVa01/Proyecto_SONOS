@@ -10,16 +10,20 @@ import java.util.List;
 @Configuration
 public class DataSeeder {
     @Bean
-    CommandLineRunner seed(TempUserService svc){
+    CommandLineRunner seedUsers(TempUserService svc){
         return args -> {
             if (svc.list().isEmpty()) {
+                // Creamos un usuario de prueba llamado "invitado1"
                 svc.create(new TempUserDTO(
-                        null, "abc123",
+                        null,
+                        "invitado1",   // Username
+                        "password123", // Password
                         LocalDateTime.now().minusHours(1),
                         LocalDateTime.now().plusHours(4),
-                        List.of("sala-1","sala-2"),
+                        List.of("Sala de Juntas A","Cabina 1"),
                         true
                 ));
+                System.out.println("--- USUARIO TEMPORAL DE PRUEBA CREADO (invitado1) ---");
             }
         };
     }

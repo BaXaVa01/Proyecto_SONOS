@@ -1,14 +1,15 @@
 package org.sonos.backend.user;
 
-import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public record TempUserDTO(
-        String id,
-        @Size(min=6, max=40) String password, // solo se usa al crear/actualizar
-        @NotNull LocalDateTime validFrom,
-        @NotNull LocalDateTime validTo,
-        @NotNull List<@NotBlank String> rooms,
+        UUID id,
+        String username, // Nuevo campo
+        String password,
+        LocalDateTime validFrom,
+        LocalDateTime validTo,
+        List<String> rooms,
         Boolean active
 ) {}

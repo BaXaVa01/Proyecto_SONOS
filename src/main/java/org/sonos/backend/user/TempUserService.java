@@ -2,11 +2,12 @@ package org.sonos.backend.user;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TempUserService {
+
     private final TempUserRepository repo;
     private final PasswordEncoder encoder;
 
@@ -19,9 +20,9 @@ public class TempUserService {
         return repo.findAll().stream().map(this::toDto).toList();
     }
 
-    @Transactional
     public TempUserDTO create(TempUserDTO in) {
-        var u = new TempUser();
+        TempUser u = new TempUser();
+        u.setUsername(in.username());
         u.setPasswordHash(encoder.encode(in.password()));
         u.setValidFrom(in.validFrom());
         u.setValidTo(in.validTo());
@@ -30,9 +31,9 @@ public class TempUserService {
         return toDto(repo.save(u));
     }
 
-    @Transactional
-    public TempUserDTO update(String id, TempUserDTO in) {
-        var u = repo.findById(id).orElseThrow();
+    public TempUserDTO update(UUID id, TempUserDTO in) {
+        TempUser u = repo.findById(id).orElseThrow();
+        if(in.username() != null) u.setUsername(in.username());
         if (in.password() != null && !in.password().isBlank())
             u.setPasswordHash(encoder.encode(in.password()));
         if (in.validFrom() != null) u.setValidFrom(in.validFrom());
@@ -42,12 +43,13 @@ public class TempUserService {
         return toDto(repo.save(u));
     }
 
-    public void delete(String id) { repo.deleteById(id); }
+    public void delete(UUID id) { repo.deleteById(id); }
 
     private TempUserDTO toDto(TempUser u) {
         return new TempUserDTO(
                 u.getId(),
-                null, // nunca devolvemos la contraseña
+                u.getUsername(),
+                null,
                 u.getValidFrom(),
                 u.getValidTo(),
                 u.getRooms(),
