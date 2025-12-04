@@ -1,0 +1,1189 @@
+:root {
+ 
+  --bg-main: #212A3E;        
+  --bg-card: #394867;       
+  --text-primary: #F1F6F9;   
+  --text-secondary: #9BA4B5; 
+
+  
+  --border-color: rgba(209, 214, 225, 0.892);
+  --slider-track-bg: #212A3E;             
+  --slider-thumb-bg: #F1F6F9;         
+
+
+  --accent-color: #9BA4B5;      
+  --slider-fill-bg: #9BA4B5;  
+
+
+  --status-dot-active: #10b981;  /* Verde para "Activo" */
+  --preset-icon-color: #facc15;   /* Amarillo para "Estrella" */
+  --delete-color-hover: #e53e3e;  /* Rojo para "Borrar" */
+
+  
+  --font-family-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+}
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+      Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Layout Principal */
+  .app-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .main-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita que el contenido principal se desborde */
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Permite scroll solo en el contenido */
+    padding: 2rem;
+  }
+  
+  /*  Sidebar  */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .sidebar-logo span {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    display: block;
+  }
+  
+  .sidebar-nav,
+  .sidebar-scenarios {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .sidebar-nav h3,
+  .sidebar-scenarios h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 1.5rem 0 0.5rem 0;
+  }
+  
+  .sidebar-nav li,
+  .sidebar-scenarios li {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    justify-content: space-between;
+  }
+  
+  .sidebar-nav li:hover,
+  .sidebar-scenarios li:hover {
+    background-color: var(--bg-main);
+  }
+  
+  .sidebar-nav li.active {
+    background-color: var(--bg-main);
+    font-weight: 700;
+  }
+  
+  .sidebar-nav li svg {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+  }
+  
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-secondary);
+    transition: background-color 0.2s ease;
+  }
+  
+  .status-dot.active {
+    background-color: var(--status-dot-active);
+  }
+  
+  /*  TopBar  */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+  
+  .top-bar-status {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .top-bar-status span {
+    color: var(--text-secondary);
+  }
+  
+  .top-bar-status strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  
+  /*  Card Base  */
+  .card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /*  GlobalVolumeCard  */
+  .global-volume-card {
+    margin-bottom: 2rem;
+  }
+  
+  .global-volume-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .global-volume-header h1 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.75rem;
+  }
+  
+  .global-volume-header p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+  
+  .global-volume-control {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .global-volume-control svg {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+  }
+  
+  .global-volume-control .slider-container {
+    flex-grow: 1;
+  }
+  
+  .global-volume-control .volume-display {
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 50px; /* Ancho fijo para alinear */
+    text-align: right;
+  }
+  
+  .active-zones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espacio entre cada píldora */
+    margin-top: 1.5rem; /* Espacio desde el título "Zonas Activas" */
+  }
+  
+  .active-zone-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-main); 
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border-bottom: none;
+  }
+  .active-zone-item:last-child {
+    border-bottom: none;
+  }
+  
+  .active-zone-item-name {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .active-zone-item-name svg {
+    color: var(--text-secondary);
+  }
+  
+  .active-zone-item-volume {
+    font-weight: 600;
+    color: var(--text-secondary); 
+  }
+  
+  /*  ZoneGrid  */
+  .zone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /*  ZoneCard  */
+  .zone-card {
+    opacity: 0.5; /* Inactivo por defecto */
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .zone-card.active {
+    opacity: 1;
+  }
+  
+  .zone-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .zone-card-name {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .zone-card-name svg {
+    font-size: 1.25rem;
+  }
+  
+  .zone-card-controls {
+    display: grid;
+    grid-template-columns: 1fr auto; /* 1fr para volumen, ancho auto para toggle */
+    gap: 1.5rem; /* Espacio entre el slider y el toggle */
+    align-items: end; /* Alinea los elementos abajo para que el slider y el toggle coincidan */
+    margin-bottom: 1.5rem;
+  }
+  
+  .zone-card-controls .volume-display {
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: 35px; /* Ancho fijo */
+    text-align: right;
+  }
+  
+  /*  Componente: VolumeSlider  */
+  .slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%; /* Asegura que ocupe todo su espacio */
+  }
+  
+  .volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--slider-track-bg);
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Track (Chrome) */
+  .volume-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    /* El fondo se aplica con CSS variable desde JS */
+  }
+  
+  /* Thumb (Chrome) */
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--slider-thumb-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: -6px; /* Centra el thumb en el track */
+    transition: transform 0.1s ease-in-out;
+  }
+  
+  .volume-slider:active::-webkit-slider-thumb {
+    transform: scale(1.1);
+  }
+  
+  /* Track (Firefox) */
+  .volume-slider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: var(--slider-track-bg);
+  }
+  
+  /* Thumb (Firefox) */
+  .volume-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--slider-thumb-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  /*  Componente: ToggleSwitch  */
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px; /* Ancho total */
+    height: 24px; /* Alto total */
+  }
+  
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--inactive-color);
+    transition: 0.2s;
+    border-radius: 34px;
+  }
+  
+  .toggle-slider:before {
+    position: absolute;
+    content: '';
+    height: 18px; /* Tamaño del círculo */
+    width: 18px; /* Tamaño del círculo */
+    left: 3px; /* Posición inicial */
+    bottom: 3px; /* Posición inicial */
+    background-color: white;
+    transition: 0.2s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .toggle-slider {
+    background-color: var(--accent-color);
+  }
+  
+  input:checked + .toggle-slider:before {
+    transform: translateX(20px); /* Distancia de movimiento */
+  }
+  /*  Estilos de la Vista de Presets  */
+
+.preset-header {
+    margin-bottom: 2rem;
+  }
+  
+  .preset-header h1 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.75rem;
+  }
+  
+  .preset-header p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+  
+  .preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .preset-card, .create-preset-card {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .preset-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .preset-card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .preset-icon {
+    color: #facc15; /* Un color de estrella/dorado */
+  }
+  
+  .preset-volume {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 1rem 0;
+  }
+  
+  .preset-zones {
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Empuja el botón al fondo */
+  }
+  
+  .preset-zones p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+  
+  .zone-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .zone-tag {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  /* Botón de Activar */
+  .preset-activate-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--slider-fill-bg); /* Color oscuro */
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .preset-activate-btn:hover {
+    background-color: #4a5568; /* Un poco más claro */
+  }
+  
+  /* Tarjeta de "Crear Nuevo" */
+  .create-preset-card {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px dashed var(--border-color);
+    box-shadow: none;
+    background-color: transparent;
+    padding: 2rem;
+  }
+  
+  .create-preset-card h3 {
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .create-preset-card p {
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .create-preset-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .create-preset-btn:hover {
+    background-color: var(--bg-main);
+  }
+  /*  Estilos de Control Maestro  */
+
+.master-header h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.75rem;
+}
+
+.master-header p {
+  margin: 0 0 2rem 0;
+  color: var(--text-secondary);
+}
+
+.master-control-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.control-section {
+  padding: 1rem 0;
+}
+
+.control-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.control-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.control-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem 0;
+}
+
+.master-sliders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.master-slider label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+
+/* Estilos de la Conexión Backend */
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 1.5rem 0;
+}
+
+.backend-info-section {
+  padding: 0.5rem 0 1rem 0;
+}
+
+.backend-info-section h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.backend-info-section p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 1rem 0;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.connection-status .status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: gray;
+}
+
+.connection-status .status-dot.active {
+  background-color: #10b981; /* Verde esmeralda */
+}
+
+.connection-status .status-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+/*  Estilos de Botones  */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--slider-fill-bg);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover {
+  background-color: #4a5568;
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-secondary:hover {
+  background-color: var(--bg-main);
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.btn-icon:hover {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+.btn-icon-delete:hover {
+  color: #e53e3e; /* Rojo al hacer hover */
+  border-color: #e53e3e;
+}
+
+
+/* Estilos de PresetsView Modificados */
+.preset-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinea con la parte de arriba del título */
+  margin-bottom: 2rem;
+}
+.preset-header h1 { margin: 0; }
+.preset-header p { margin: 0.25rem 0 0 0; }
+
+.preset-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem; /* Separación de las zonas */
+}
+.preset-card-actions .preset-activate-btn {
+  flex-grow: 1; /* El botón de activar ocupa el espacio restante */
+  padding: 0.75rem; /* Ajuste del padding */
+}
+
+
+/*  Estilos del Modal  */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  z-index: 1001;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.modal-body {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/*  Estilos de Formulario  */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.form-group .label-with-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-group .label-with-value span {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input[type="text"] {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--bg-main);
+}
+.form-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.form-group small {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/*  Estilos de Checkbox Personalizado  */
+.zone-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+.checkbox-item input[type="checkbox"] {
+  display: none; /* Oculta el checkbox por defecto */
+}
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+/* Estilo del "tick" (marca de verificación) */
+.checkbox-custom::after {
+  content: '';
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.checkbox-item input[type="checkbox"]:checked + .checkbox-custom {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+.checkbox-item input[type="checkbox"]:checked + .checkbox-custom::after {
+  opacity: 1;
+}
+/* ... (Al final de tus estilos de Control Maestro) ... */
+
+.connection-status .status-dot.active {
+  background-color: #10b981; /* Verde (conectado) */
+}
+.connection-status .status-dot.connecting {
+  background-color: #f59e0b; /* Naranja (conectando) */
+  animation: pulse 1.5s infinite;
+}
+.connection-status .status-dot.disconnected {
+  background-color: #ef4444; /* Rojo (desconectado) */
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* --- Estilos de Estado de Zona (Badges) --- */
+.zone-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.available {
+  background-color: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.status-badge.occupied {
+  background-color: #1e293b; /* Un tono oscuro */
+  color: #f1f5f9;
+  border: 1px solid transparent;
+}
+
+/* --- Tarjeta de Usuario Asignado --- */
+.user-info-card {
+  background-color: #f1f5f9; /* Gris muy claro */
+  color: #334155; /* Texto oscuro para contraste */
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-text h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.user-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Botón grande de Asignar */
+.btn-assign {
+  width: 100%;
+  background-color: transparent;
+  border: 1px dashed var(--text-secondary);
+  color: var(--text-secondary);
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn-assign:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+/* --- Filtros de Zonas (Tabs) --- */
+.filter-tabs-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.filter-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.filter-tab:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Estado Activo del Filtro */
+.filter-tab.active {
+  color: var(--text-primary); /* Texto blanco */
+  background-color: var(--bg-card); /* Fondo de tarjeta para resaltar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.filter-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -9px; /* Ajustado para coincidir con la línea del contenedor */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 3px;
+  background-color: var(--status-dot-active); /* Tu color verde */
+  border-radius: 3px 3px 0 0;
+}
+
+/* --- Controles Multimedia (Visuales) --- */
+.media-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem; /* Espacio antes del Ecualizador */
+  padding-top: 0.5rem;
+}
+
+.btn-media {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-media.primary {
+  background-color: var(--bg-main); /* Fondo oscuro */
+  color: var(--text-primary);
+  border-color: transparent;
+}
+
+.btn-media:hover {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+/* --- Sección de Ecualizador --- */
+.eq-accordion-toggle {
+  width: auto;
+  box-sizing: border-box;
+  /* Fondo por defecto cuando está cerrado */
+  background-color: rgba(255, 255, 255, 0.05); 
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 8px; /* Redondeado completo */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+/* Clase para cuando el acordeón está ABIERTO */
+.eq-accordion-toggle.open {
+  /* Usamos un color ligeramente más claro para destacar sobre la tarjeta */
+  background-color: rgba(255, 255, 255, 0.05); 
+  border-bottom: none;          /* Sin borde abajo */
+  border-bottom-left-radius: 0; /* Esquinas rectas abajo */
+  border-bottom-right-radius: 0;
+  padding-bottom: 0.75rem;     
+  border-color: var(--border-color); /* Ajuste de relleno */
+}
+
+.eq-panel {
+  width: auto;
+  box-sizing: border-box;
+  
+  background-color: rgba(255, 255, 255, 0.05); 
+  border: 1px solid var(--border-color);
+  border-top: none;             /* Sin borde arriba */
+  border-radius: 0 0 8px 8px;   /* Redondeado solo abajo */
+  padding: 1rem;
+  
+  /* Truco para asegurar que los bordes se toquen perfectamente */
+  margin-top: -1px; 
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Si el tema es oscuro, ajustamos el fondo del panel EQ */
+@media (prefers-color-scheme: dark) {
+  /* O mejor, usamos tus variables de tema oscuro manualmente */
+  .eq-panel {
+    background-color: rgba(255, 255, 255, 0.03); /* Transparencia sutil */
+    border-color: var(--border-color);
+  }
+}
+.eq-range-input {
+  width: 100%;
+  height: 6px;
+  background: rgba(0,0,0, 0.3); /* Fondo del carril más oscuro */
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+.eq-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  cursor: grab;
+  transition: transform 0.1s;
+}
+.eq-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.eq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--text-secondary); /* Texto gris */
+}
+
+.eq-header h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.btn-reset {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-reset:hover {
+  color: var(--status-dot-active); /* Verde al hacer hover */
+  text-decoration: underline;
+}
+
+/* Sliders del EQ (más finos) */
+.eq-slider-group {
+  margin-bottom: 0.75rem;
+}
+
+.eq-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+.eq-accordion-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.toggle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinea la etiqueta "Estado" y el switch a la derecha */
+  gap: 0.5rem;
+  /* Pequeño ajuste para alinear visualmente el centro del toggle con el slider */
+  padding-bottom: 2px; 
+}
